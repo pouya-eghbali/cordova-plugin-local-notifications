@@ -3,3 +3,5 @@
 /src/windows/**/.vs
 /src/windows/**/bin
 /src/windows/**/obj
+node_modules
+.DS_Store
