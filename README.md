@@ -1,4 +1,3 @@
-
 <p align="left"><b><a href="https://github.com/katzer/cordova-plugin-local-notifications/tree/example-x">SAMPLE APP</a> :point_right:</b></p>
 
 <br>
@@ -57,23 +56,22 @@ Please make sure that you always read the tagged README for the version you're u
 
 See the _0.8_ branch if you cannot upgrade. Further development for `v0.9-beta` will happen here. The `0.9-dev` and `ios10` branches are obsolate and will be removed soon.
 
-__Known issues__
+**Known issues**
 
 - Support for Android Oreo is limited yet.
 - v0.9 and v0.8 aren't compatible with each other (Wont fix)
 
 Please report bugs or missing features!
 
-
 ## Basics
 
-The plugin creates the object `cordova.plugins.notification.local` and is accessible after *deviceready* has been fired.
+The plugin creates the object `cordova.plugins.notification.local` and is accessible after _deviceready_ has been fired.
 
 ```js
 cordova.plugins.notification.local.schedule({
-    title: 'My first notification',
-    text: 'Thats pretty easy...',
-    foreground: true
+  title: "My first notification",
+  text: "Thats pretty easy...",
+  foreground: true,
 });
 ```
 
@@ -85,8 +83,8 @@ The plugin allows to schedule multiple notifications at once.
 
 ```js
 cordova.plugins.notification.local.schedule([
-    { id: 1, title: 'My first notification' },
-    { id: 2, title: 'My first notification' }
+  { id: 1, title: "My first notification" },
+  { id: 2, title: "My first notification" },
 ]);
 ```
 
@@ -94,13 +92,13 @@ cordova.plugins.notification.local.schedule([
 
 A notification does have a set of configurable properties. Not all of them are supported across all platforms.
 
-| Property      | Property      | Property      | Property      | Property      | Property      | Property      | Property      | Property      |
-| :------------ | :------------ | :------------ | :------------ | :------------ | :------------ | :------------ | :------------ | :------------ |
-| id            | data          | timeoutAfter  | summary       | led           | clock         | channelName       | actions       | alarmVolume   |
-| text          | icon          | attachments   | smallIcon     | color         | defaults      | launch        | groupSummary  | resetDelay    |
-| title         | silent        | progressBar   | sticky        | vibrate       | priority      | mediaSession  | foreground    | autoLaunch    |
-| sound         | trigger       | group         | autoClear     | lockscreen    | number        | badge         | wakeup        | channelId     |
-| iconType      | wakeLockTimeout | triggerInApp | fullScreenIntent
+| Property | Property        | Property     | Property         | Property   | Property | Property     | Property     | Property    |
+| :------- | :-------------- | :----------- | :--------------- | :--------- | :------- | :----------- | :----------- | :---------- |
+| id       | data            | timeoutAfter | summary          | led        | clock    | channelName  | actions      | alarmVolume |
+| text     | icon            | attachments  | smallIcon        | color      | defaults | launch       | groupSummary | resetDelay  |
+| title    | silent          | progressBar  | sticky           | vibrate    | priority | mediaSession | foreground   | autoLaunch  |
+| sound    | trigger         | group        | autoClear        | lockscreen | number   | badge        | wakeup       | channelId   |
+| iconType | wakeLockTimeout | triggerInApp | fullScreenIntent |
 
 For their default values see:
 
@@ -112,8 +110,8 @@ To change some default values:
 
 ```js
 cordova.plugins.notification.local.setDefaults({
-    led: { color: '#FF00FF', on: 500, off: 500 },
-    vibrate: false
+  led: { color: "#FF00FF", on: 500, off: 500 },
+  vibrate: false,
 });
 ```
 
@@ -123,13 +121,13 @@ The plugin knows two types of actions: _button_ and _input_.
 
 ```js
 cordova.plugins.notification.local.schedule({
-    title: 'The big survey',
-    text: 'Are you a fan of RB Leipzig?',
-    attachments: ['file://img/rb-leipzig.jpg'],
-    actions: [
-        { id: 'yes', title: 'Yes' },
-        { id: 'no',  title: 'No' }
-    ]
+  title: "The big survey",
+  text: "Are you a fan of RB Leipzig?",
+  attachments: ["file://img/rb-leipzig.jpg"],
+  actions: [
+    { id: "yes", title: "Yes" },
+    { id: "no", title: "No" },
+  ],
 });
 ```
 
@@ -162,11 +160,10 @@ cordova.plugins.notification.local.schedule({
 
 It is recommended to pre-define action groups rather then specifying them with each new notification of the same type.
 
-
 ```js
-cordova.plugins.notification.local.addActions('yes-no', [
-    { id: 'yes', title: 'Yes' },
-    { id: 'no',  title: 'No'  }
+cordova.plugins.notification.local.addActions("yes-no", [
+  { id: "yes", title: "Yes" },
+  { id: "no", title: "No" },
 ]);
 ```
 
@@ -174,9 +171,9 @@ Once you have defined an action group, you can reference it when scheduling noti
 
 ```js
 cordova.plugins.notification.local.schedule({
-    title: 'Justin Rhyss',
-    text: 'Do you want to go see a movie tonight?',
-    actions: 'yes-no'
+  title: "Justin Rhyss",
+  text: "Do you want to go see a movie tonight?",
+  actions: "yes-no",
 });
 ```
 
@@ -198,7 +195,6 @@ Actions do have a set of configurable properties. Not all of them are supported 
 | choices      | input        | x       |     |         |
 | defaultValue | input        |         |     | x       |
 
-
 ## Triggers
 
 Notifications may trigger immediately or depend on calendar or location.
@@ -207,9 +203,9 @@ To trigger at a fix date:
 
 ```js
 cordova.plugins.notification.local.schedule({
-    title: 'Design team meeting',
-    text: '3:00 - 4:00 PM',
-    trigger: { at: new Date(2017, 10, 27, 15) }
+  title: "Design team meeting",
+  text: "3:00 - 4:00 PM",
+  trigger: { at: new Date(2017, 10, 27, 15) },
 });
 ```
 
@@ -217,8 +213,8 @@ Or relative from now:
 
 ```js
 cordova.plugins.notification.local.schedule({
-    title: 'Design team meeting',
-    trigger: { in: 1, unit: 'hour' }
+  title: "Design team meeting",
+  trigger: { in: 1, unit: "hour" },
 });
 ```
 
@@ -228,8 +224,8 @@ Repeat relative from now:
 
 ```js
 cordova.plugins.notification.local.schedule({
-    title: 'Design team meeting',
-    trigger: { every: 'day', count: 5 }
+  title: "Design team meeting",
+  trigger: { every: "day", count: 5 },
 });
 ```
 
@@ -237,8 +233,8 @@ Or trigger every time the date matches:
 
 ```js
 cordova.plugins.notification.local.schedule({
-    title: 'Happy Birthday!!!',
-    trigger: { every: { month: 10, day: 27, hour: 9, minute: 0 } }
+  title: "Happy Birthday!!!",
+  trigger: { every: { month: 10, day: 27, hour: 9, minute: 0 } },
 });
 ```
 
@@ -248,13 +244,13 @@ To trigger when the user enters a region:
 
 ```js
 cordova.plugins.notification.local.schedule({
-    title: 'Welcome to our office',
-    trigger: {
-        type: 'location',
-        center: [x, y],
-        radius: 15,
-        notifyOnEntry: true
-    }
+  title: "Welcome to our office",
+  trigger: {
+    type: "location",
+    center: [x, y],
+    radius: 15,
+    notifyOnEntry: true,
+  },
 });
 ```
 
@@ -262,52 +258,51 @@ cordova.plugins.notification.local.schedule({
 
 The properties depend on the trigger type. Not all of them are supported across all platforms.
 
-| Type         | Property      | Type    | Value            | Android | iOS | Windows |
-| :----------- | :------------ | :------ | :--------------- | :------ | :-- | :------ |
-| Fix          |
-|              | at            | Date    |                  | x       | x   | x       |
-| Timespan     |
-|              | in            | Int     |                  | x       | x   | x       |
-|              | unit          | String  | `second`         | x       | x   | x       |
-|              | unit          | String  | `minute`         | x       | x   | x       |
-|              | unit          | String  | `hour`           | x       | x   | x       |
-|              | unit          | String  | `day`            | x       | x   | x       |
-|              | unit          | String  | `week`           | x       | x   | x       |
-|              | unit          | String  | `month`          | x       | x   | x       |
-|              | unit          | String  | `quarter`        | x       | x   | x       |
-|              | unit          | String  | `year`           | x       | x   | x       |
-| Repeat       |
-|              | count         | Int     |                  | x       |     | x       |
-|              | every         | String  | `minute`         | x       | x   | x       |
-|              | every         | String  | `hour`           | x       | x   | x       |
-|              | every         | String  | `day`            | x       | x   | x       |
-|              | every         | String  | `week`           | x       | x   | x       |
-|              | every         | String  | `month`          | x       | x   | x       |
-|              | every         | String  | `quarter`        | x       |     | x       |
-|              | every         | String  | `year`           | x       | x   | x       |
-|              | before        | Date    |                  | x       |     | x       |
-|              | firstAt       | Date    |                  | x       |     | x       |
-| Match        |
-|              | count         | Int     |                  | x       |     | x       |
-|              | every         | Object  | `minute`         | x       | x   | x       |
-|              | every         | Object  | `hour`           | x       | x   | x       |
-|              | every         | Object  | `day`            | x       | x   | x       |
-|              | every         | Object  | `weekday`        | x       | x   | x       |
-|              | every         | Object  | `weekdayOrdinal` |         | x   |
-|              | every         | Object  | `week`           |         | x   |
-|              | every         | Object  | `weekOfMonth`    | x       | x   | x       |
-|              | every         | Object  | `month`          | x       | x   | x       |
-|              | every         | Object  | `quarter`        |         | x   |
-|              | every         | Object  | `year`           | x       | x   | x       |
-|              | before        | Date    |                  | x       |     | x       |
-|              | after         | Date    |                  | x       |     | x       |
-| Location     |
-|              | center        | Array   | `[lat, long]`    |         | x   |
-|              | radius        | Int     |                  |         | x   |
-|              | notifyOnEntry | Boolean |                  |         | x   |
-|              | notifyOnExit  | Boolean |                  |         | x   |
-|              | single        | Boolean |                  |         | x   |
-
+| Type     | Property      | Type    | Value            | Android | iOS | Windows |
+| :------- | :------------ | :------ | :--------------- | :------ | :-- | :------ |
+| Fix      |
+|          | at            | Date    |                  | x       | x   | x       |
+| Timespan |
+|          | in            | Int     |                  | x       | x   | x       |
+|          | unit          | String  | `second`         | x       | x   | x       |
+|          | unit          | String  | `minute`         | x       | x   | x       |
+|          | unit          | String  | `hour`           | x       | x   | x       |
+|          | unit          | String  | `day`            | x       | x   | x       |
+|          | unit          | String  | `week`           | x       | x   | x       |
+|          | unit          | String  | `month`          | x       | x   | x       |
+|          | unit          | String  | `quarter`        | x       | x   | x       |
+|          | unit          | String  | `year`           | x       | x   | x       |
+| Repeat   |
+|          | count         | Int     |                  | x       |     | x       |
+|          | every         | String  | `minute`         | x       | x   | x       |
+|          | every         | String  | `hour`           | x       | x   | x       |
+|          | every         | String  | `day`            | x       | x   | x       |
+|          | every         | String  | `week`           | x       | x   | x       |
+|          | every         | String  | `month`          | x       | x   | x       |
+|          | every         | String  | `quarter`        | x       |     | x       |
+|          | every         | String  | `year`           | x       | x   | x       |
+|          | before        | Date    |                  | x       |     | x       |
+|          | firstAt       | Date    |                  | x       |     | x       |
+| Match    |
+|          | count         | Int     |                  | x       |     | x       |
+|          | every         | Object  | `minute`         | x       | x   | x       |
+|          | every         | Object  | `hour`           | x       | x   | x       |
+|          | every         | Object  | `day`            | x       | x   | x       |
+|          | every         | Object  | `weekday`        | x       | x   | x       |
+|          | every         | Object  | `weekdayOrdinal` |         | x   |
+|          | every         | Object  | `week`           |         | x   |
+|          | every         | Object  | `weekOfMonth`    | x       | x   | x       |
+|          | every         | Object  | `month`          | x       | x   | x       |
+|          | every         | Object  | `quarter`        |         | x   |
+|          | every         | Object  | `year`           | x       | x   | x       |
+|          | before        | Date    |                  | x       |     | x       |
+|          | after         | Date    |                  | x       |     | x       |
+| Location |
+|          | center        | Array   | `[lat, long]`    |         | x   |
+|          | radius        | Int     |                  |         | x   |
+|          | notifyOnEntry | Boolean |                  |         | x   |
+|          | notifyOnExit  | Boolean |                  |         | x   |
+|          | single        | Boolean |                  |         | x   |
 
 ## Progress
 
@@ -315,9 +310,9 @@ Notifications can include an animated progress indicator that shows users the st
 
 ```js
 cordova.plugins.notification.local.schedule({
-    title: 'Sync in progress',
-    text: 'Copied 2 of 10 files',
-    progressBar: { value: 20 }
+  title: "Sync in progress",
+  text: "Copied 2 of 10 files",
+  progressBar: { value: 20 },
 });
 ```
 
@@ -325,17 +320,17 @@ cordova.plugins.notification.local.schedule({
     <img src="images/android-progress.png">
 </p>
 
-
 ## Patterns
 
 Split the text by line breaks if the message comes from a single person and just too long to show in a single line.
 
 ```js
 cordova.plugins.notification.local.schedule({
-    title: 'The Big Meeting',
-    text: '4:15 - 5:15 PM\nBig Conference Room',
-    smallIcon: 'res://calendar',
-    icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzfXKe6Yfjr6rCtR6cMPJB8CqMAYWECDtDqH-eMnerHHuXv9egrw'
+  title: "The Big Meeting",
+  text: "4:15 - 5:15 PM\nBig Conference Room",
+  smallIcon: "res://calendar",
+  icon:
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzfXKe6Yfjr6rCtR6cMPJB8CqMAYWECDtDqH-eMnerHHuXv9egrw",
 });
 ```
 
@@ -349,14 +344,15 @@ Instead of displaying multiple notifications, you can create one notification th
 
 ```js
 cordova.plugins.notification.local.schedule({
-    id: 15,
-    title: 'Chat with Irish',
-    icon: 'http://climberindonesia.com/assets/icon/ionicons-2.0.1/png/512/android-chat.png',
-    text: [
-        { message: 'I miss you' },
-        { person: 'Irish', message: 'I miss you more!' },
-        { message: 'I always miss you more by 10%' }
-    ]
+  id: 15,
+  title: "Chat with Irish",
+  icon:
+    "http://climberindonesia.com/assets/icon/ionicons-2.0.1/png/512/android-chat.png",
+  text: [
+    { message: "I miss you" },
+    { person: "Irish", message: "I miss you more!" },
+    { message: "I always miss you more by 10%" },
+  ],
 });
 ```
 
@@ -368,8 +364,8 @@ To add a new message to the existing chat:
 
 ```js
 cordova.plugins.notification.local.update({
-    id: 15,
-    text: [{ person: 'Irish', message: 'Bye bye' }]
+  id: 15,
+  text: [{ person: "Irish", message: "Bye bye" }],
 });
 ```
 
@@ -394,7 +390,6 @@ cordova.plugins.notification.local.schedule([
     <img src="images/android-stack.png">
 </p>
 
-
 ## Permissions
 
 Each platform may require the user to grant permissions first before the app is allowed to schedule notifications.
@@ -416,9 +411,10 @@ cordova.plugins.notification.local.requestPermission(function (granted) { ... })
 Checking the permissions is done automatically, however it's possible to skip that.
 
 ```js
-cordova.plugins.notification.local.schedule(toast, callback, scope, { skipPermission: true });
+cordova.plugins.notification.local.schedule(toast, callback, scope, {
+  skipPermission: true,
+});
 ```
-
 
 On Android 8, special permissions are required to exit "do not disturb mode" (in case alarmVolume is defined).
 You can check these by using:
@@ -438,7 +434,7 @@ honored on Android 8+ devices if the device is currently on silent when the noti
 In this situation, the notification will fire silently but still appear in the notification bar.
 
 Also on Android 8, it is helpful for alarms that autolaunch the app with an event, if the app can
-ignore battery saving mode (otherwise alarms won't trigger reliably).  You can check to see if the app is whitelisted for this with the following method.
+ignore battery saving mode (otherwise alarms won't trigger reliably). You can check to see if the app is whitelisted for this with the following method.
 
 ```js
 cordova.plugins.notification.local.isIgnoringBatteryOptimizations(function (granted) { ... })
@@ -451,9 +447,9 @@ cordova.plugins.notification.local.requestIgnoreBatteryOptimizations(function (g
 ```
 
 The request method here will work one of two ways.
-1. If you have the REQUEST_IGNORE_BATTERY_OPTIMIZATIONS permission defined in the manifest, it will use ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS to explicitly ignore battery optimizations for this app.  This is the best overall user experience, but the REQUEST_IGNORE_BATTERY_OPTIMIZATIONS permission seems to be frowned upon and can get your app banned. This plugin does not have this permission in plugin.xml for this reason, so you will need to use the cordova-custom-config plugin to add it to your config.xml
-2. If you do not have REQUEST_IGNORE_BATTERY_OPTIMIZATIONS requested, it will launch ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS to show a list of all applications.  You will want to put some sort of instructions prior to this to walk the user through this.  Also, this action doesn't exist on all Android devices (is missing on Samsung phones), which will make this method simply return false if it can't start the activity.
 
+1. If you have the REQUEST_IGNORE_BATTERY_OPTIMIZATIONS permission defined in the manifest, it will use ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS to explicitly ignore battery optimizations for this app. This is the best overall user experience, but the REQUEST_IGNORE_BATTERY_OPTIMIZATIONS permission seems to be frowned upon and can get your app banned. This plugin does not have this permission in plugin.xml for this reason, so you will need to use the cordova-custom-config plugin to add it to your config.xml
+2. If you do not have REQUEST_IGNORE_BATTERY_OPTIMIZATIONS requested, it will launch ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS to show a list of all applications. You will want to put some sort of instructions prior to this to walk the user through this. Also, this action doesn't exist on all Android devices (is missing on Samsung phones), which will make this method simply return false if it can't start the activity.
 
 ## Events
 
@@ -469,7 +465,7 @@ To unsubscribe from events:
 cordova.plugins.notification.local.un(event, callback, scope);
 ```
 
-__Note:__ You have to provide the exact same callback to `cordova.plugins.notification.local.un` as you provided to `cordova.plugins.notification.local.on` to make unsubscribing work.
+**Note:** You have to provide the exact same callback to `cordova.plugins.notification.local.un` as you provided to `cordova.plugins.notification.local.on` to make unsubscribing work.
 Hence you should define your callback as a separate function, not inline. If you want to use `this` inside of your callback, you also have to provide `this` as `scope` to `cordova.plugins.notification.local.on`.
 
 ### Custom
@@ -478,8 +474,8 @@ The plugin also fires events specified by actions.
 
 ```js
 cordova.plugins.notification.local.schedule({
-    title: 'Do you want to go see a movie tonight?',
-    actions: [{ id: 'yes', title: 'Yes' }]
+  title: "Do you want to go see a movie tonight?",
+  actions: [{ id: "yes", title: "Yes" }],
 });
 ```
 
@@ -497,23 +493,26 @@ Not an official interface, however its possible to manually fire events.
 cordova.plugins.notification.local.core.fireEvent(event, args);
 ```
 
-
 ## Launch Details
 
 Check the `launchDetails` to find out if the app was launched by clicking on a notification.
 
 ```js
-document.addEventListener('deviceready', function () {
+document.addEventListener(
+  "deviceready",
+  function () {
     console.log(cordova.plugins.notification.local.launchDetails);
-}, false);
+  },
+  false
+);
 ```
 
-It might be possible that the underlying framework like __Ionic__ is not compatible with the launch process defined by cordova. With the result that the plugin fires the click event on app start before the app is able to listen for the events.
+It might be possible that the underlying framework like **Ionic** is not compatible with the launch process defined by cordova. With the result that the plugin fires the click event on app start before the app is able to listen for the events.
 
 Therefore its possible to fire the queued events manually by defining a global variable.
 
 ```js
-window.skipLocalNotificationReady = true
+window.skipLocalNotificationReady = true;
 ```
 
 Once the app and Ionic is ready, you can fire the queued events manually.
@@ -522,24 +521,22 @@ Once the app and Ionic is ready, you can fire the queued events manually.
 cordova.plugins.notification.local.fireQueuedEvents();
 ```
 
-
 ## Methods
 
 All methods work asynchronous and accept callback methods.
 See the sample app for how to use them.
 
-| Method   | Method            | Method          | Method         | Method        | Method           |
-| :------- | :---------------- | :-------------- | :------------- | :------------ | :--------------- |
-| schedule | cancelAll         | isTriggered     | get            | removeActions | un                              |
-| update   | hasPermission     | getType         | getAll         | hasActions    | fireQueuedEvents                |
-| clear    | requestPermission | getIds          | getScheduled   | getDefaults   | requestDoNotDisturbPermissions  |
-| clearAll | isPresent         | getScheduledIds | getTriggered   | setDefaults   | hasDoNotDisturbPermissions      |
-| cancel   | isScheduled       | getTriggeredIds | addActions     | on            |
-
+| Method   | Method            | Method          | Method       | Method        | Method                         |
+| :------- | :---------------- | :-------------- | :----------- | :------------ | :----------------------------- |
+| schedule | cancelAll         | isTriggered     | get          | removeActions | un                             |
+| update   | hasPermission     | getType         | getAll       | hasActions    | fireQueuedEvents               |
+| clear    | requestPermission | getIds          | getScheduled | getDefaults   | requestDoNotDisturbPermissions |
+| clearAll | isPresent         | getScheduledIds | getTriggered | setDefaults   | hasDoNotDisturbPermissions     |
+| cancel   | isScheduled       | getTriggeredIds | addActions   | on            |
 
 ## Installation
 
-The plugin can be installed via [Cordova-CLI][CLI] and is publicly available on [NPM][npm].
+The plugin can be installed via [Cordova-CLI][cli] and is publicly available on [NPM][npm].
 
 Execute from the projects root folder:
 
@@ -557,7 +554,6 @@ Or install from local source:
 
     $ cordova plugin add <path> --nofetch --nosave --link
 
-
 ## Contributing
 
 1. Fork it
@@ -565,7 +561,6 @@ Or install from local source:
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
-
 
 ## License
 
@@ -575,10 +570,9 @@ Made with :yum: from Leipzig
 
 © 2013 [appPlant GmbH][appplant]
 
-
 [ticket_template]: https://github.com/katzer/cordova-plugin-local-notifications/issues/1188
 [cordova]: https://cordova.apache.org
-[CLI]: http://cordova.apache.org/docs/en/edge/guide_cli_index.md.html#The%20Command-line%20Interface
+[cli]: http://cordova.apache.org/docs/en/edge/guide_cli_index.md.html#The%20Command-line%20Interface
 [npm]: https://www.npmjs.com/package/cordova-plugin-local-notification
 [apache2_license]: http://opensource.org/licenses/Apache-2.0
 [appplant]: http://appplant.de

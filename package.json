@@ -51,5 +51,9 @@
   "bugs": {
     "url": "https://github.com/katzer/cordova-plugin-local-notifications/issues"
   },
-  "homepage": "https://github.com/katzer/cordova-plugin-local-notifications#readme"
+  "homepage": "https://github.com/katzer/cordova-plugin-local-notifications#readme",
+  "devDependencies": {
+    "@prettier/plugin-xml": "^0.13.1",
+    "prettier": "^2.2.1"
+  }
 }

@@ -20,11 +20,11 @@
  */
 
 var LocalNotification = LocalNotificationProxy.LocalNotification,
-       ActivationKind = Windows.ApplicationModel.Activation.ActivationKind;
+  ActivationKind = Windows.ApplicationModel.Activation.ActivationKind;
 
-var impl  = new LocalNotificationProxy.LocalNotificationProxy(),
-    queue = [],
-    ready = false;
+var impl = new LocalNotificationProxy.LocalNotificationProxy(),
+  queue = [],
+  ready = false;
 
 /**
  * Set launchDetails object.
@@ -36,11 +36,11 @@ var impl  = new LocalNotificationProxy.LocalNotificationProxy(),
  * @return [ Void ]
  */
 exports.launch = function (success, error, args) {
-    var plugin = cordova.plugins.notification.local;
+  var plugin = cordova.plugins.notification.local;
 
-    if (args.length === 0 || plugin.launchDetails) return;
+  if (args.length === 0 || plugin.launchDetails) return;
 
-    plugin.launchDetails = { id: args[0], action: args[1] };
+  plugin.launchDetails = { id: args[0], action: args[1] };
 };
 
 /**
@@ -49,13 +49,13 @@ exports.launch = function (success, error, args) {
  * @return [ Void ]
  */
 exports.ready = function () {
-    ready = true;
+  ready = true;
 
-    for (var item of queue) {
-        exports.fireEvent.apply(exports, item);
-    }
+  for (var item of queue) {
+    exports.fireEvent.apply(exports, item);
+  }
 
-    queue = [];
+  queue = [];
 };
 
 /**
@@ -67,8 +67,8 @@ exports.ready = function () {
  * @return [ Void ]
  */
 exports.check = function (success, error) {
-    var granted = impl.hasPermission();
-    success(granted);
+  var granted = impl.hasPermission();
+  success(granted);
 };
 
 /**
@@ -80,62 +80,62 @@ exports.check = function (success, error) {
  * @return [ Void ]
  */
 exports.request = function (success, error) {
-    exports.check(success, error);
+  exports.check(success, error);
 };
 
 /**
  * Check to see if the user has allowed "Do Not Disturb" permissions for this app.
  * This is required to use alarmVolume to take a user out of silent mode.
- * 
+ *
  * Callback contains true or false for whether or not we have this permission.
- * 
+ *
  * @param {Function} callback The function to be exec as the callback.
- * @param {Object} scope callback function's scope 
+ * @param {Object} scope callback function's scope
  */
 exports.hasDoNotDisturbPermission = function (success, error) {
-    impl.hasDoNotDisturbPermission(success, error);
-}
+  impl.hasDoNotDisturbPermission(success, error);
+};
 
 /**
  * Request "Do Not Disturb" permissions for this app.
  * The only way to do this is to launch the global do not distrub settings for all apps.
  * This permission is required to use alarmVolume to take a user out of silent mode.
- * 
- * Callback is deferred until 
- * 
+ *
+ * Callback is deferred until
+ *
  * @param {Function} callback The function to be exec as the callback.
- * @param {Object} scope callback function's scope 
+ * @param {Object} scope callback function's scope
  */
 exports.requestDoNotDisturbPermissions = function (success, error) {
-    impl.requestDoNotDisturbPermissions(success, error);
-}
+  impl.requestDoNotDisturbPermissions(success, error);
+};
 
 /**
  * Check to see if the app is ignoring battery optimizations.  This needs
  * to be whitelisted by the user.
- * 
+ *
  * Callback contains true or false for whether or not we have this permission.
- * 
+ *
  * @param {Function} callback The function to be exec as the callback.
- * @param {Object} scope callback function's scope 
+ * @param {Object} scope callback function's scope
  */
 exports.isIgnoringBatteryOptimizations = function (success, error) {
-    impl.isIgnoringBatteryOptimizations(success, error);
-}
+  impl.isIgnoringBatteryOptimizations(success, error);
+};
 
 /**
  * Request permission to ignore battery optimizations.
  * The only way to do this is to launch the global battery optimization settings for all apps.
  * This permission is required to allow alarm to trigger logic within the app while the app is dead.
- * 
+ *
  * Callback is deferred until user returns.
- * 
+ *
  * @param {Function} callback The function to be exec as the callback.
- * @param {Object} scope callback function's scope 
+ * @param {Object} scope callback function's scope
  */
 exports.requestIgnoreBatteryOptimizations = function (success, error) {
-    impl.requestIgnoreBatteryOptimizations(success, error);
-}
+  impl.requestIgnoreBatteryOptimizations(success, error);
+};
 
 /**
  * Schedule notifications.
@@ -147,20 +147,20 @@ exports.requestIgnoreBatteryOptimizations = function (success, error) {
  * @return [ Void ]
  */
 exports.schedule = function (success, error, args) {
-    var options = [];
+  var options = [];
 
-    for (var props of args) {
-        opts  = exports.parseOptions(props);
-        options.push(opts);
-    }
+  for (var props of args) {
+    opts = exports.parseOptions(props);
+    options.push(opts);
+  }
 
-    impl.schedule(options);
+  impl.schedule(options);
 
-    for (var toast of options) {
-        exports.fireEvent('add', toast);
-    }
+  for (var toast of options) {
+    exports.fireEvent("add", toast);
+  }
 
-    exports.check(success, error);
+  exports.check(success, error);
 };
 
 /**
@@ -173,20 +173,20 @@ exports.schedule = function (success, error, args) {
  * @return [ Void ]
  */
 exports.update = function (success, error, args) {
-    var options = [];
+  var options = [];
 
-    for (var props of args) {
-        opts  = exports.parseOptions(props);
-        options.push(opts);
-    }
+  for (var props of args) {
+    opts = exports.parseOptions(props);
+    options.push(opts);
+  }
 
-    impl.update(options);
+  impl.update(options);
 
-    for (var toast of options) {
-        exports.fireEvent('update', toast);
-    }
+  for (var toast of options) {
+    exports.fireEvent("update", toast);
+  }
 
-    exports.check(success, error);
+  exports.check(success, error);
 };
 
 /**
@@ -199,13 +199,13 @@ exports.update = function (success, error, args) {
  * @return [ Void ]
  */
 exports.clear = function (success, error, args) {
-    var toasts = impl.clear(args) || [];
+  var toasts = impl.clear(args) || [];
 
-    for (var toast of toasts) {
-        exports.fireEvent('clear', toast);
-    }
+  for (var toast of toasts) {
+    exports.fireEvent("clear", toast);
+  }
 
-    success();
+  success();
 };
 
 /**
@@ -217,9 +217,9 @@ exports.clear = function (success, error, args) {
  * @return [ Void ]
  */
 exports.clearAll = function (success, error) {
-    impl.clearAll();
-    exports.fireEvent('clearall');
-    success();
+  impl.clearAll();
+  exports.fireEvent("clearall");
+  success();
 };
 
 /**
@@ -232,13 +232,13 @@ exports.clearAll = function (success, error) {
  * @return [ Void ]
  */
 exports.cancel = function (success, error, args) {
-    var toasts = impl.cancel(args) || [];
+  var toasts = impl.cancel(args) || [];
 
-    for (var toast of toasts) {
-        exports.fireEvent('cancel', toast);
-    }
+  for (var toast of toasts) {
+    exports.fireEvent("cancel", toast);
+  }
 
-    success();
+  success();
 };
 
 /**
@@ -250,9 +250,9 @@ exports.cancel = function (success, error, args) {
  * @return [ Void ]
  */
 exports.cancelAll = function (success, error) {
-    impl.cancelAll();
-    exports.fireEvent('cancelall');
-    success();
+  impl.cancelAll();
+  exports.fireEvent("cancelall");
+  success();
 };
 
 /**
@@ -265,8 +265,8 @@ exports.cancelAll = function (success, error) {
  * @return [ Void ]
  */
 exports.type = function (success, error, args) {
-    var type = impl.type(args[0]);
-    success(type);
+  var type = impl.type(args[0]);
+  success(type);
 };
 
 /**
@@ -279,8 +279,8 @@ exports.type = function (success, error, args) {
  * @return [ Void ]
  */
 exports.ids = function (success, error, args) {
-    var ids = impl.ids(args[0]) || [];
-    success(Array.from(ids));
+  var ids = impl.ids(args[0]) || [];
+  success(Array.from(ids));
 };
 
 /**
@@ -293,8 +293,8 @@ exports.ids = function (success, error, args) {
  * @return [ Void ]
  */
 exports.notification = function (success, error, args) {
-    var obj = impl.notification(args[0]);
-    success(exports.clone(obj));
+  var obj = impl.notification(args[0]);
+  success(exports.clone(obj));
 };
 
 /**
@@ -307,8 +307,8 @@ exports.notification = function (success, error, args) {
  * @return [ Void ]
  */
 exports.notifications = function (success, error, args) {
-    var objs = impl.notifications(args[0], args[1]) || [];
-    success(exports.cloneAll(objs));
+  var objs = impl.notifications(args[0], args[1]) || [];
+  success(exports.cloneAll(objs));
 };
 
 /**
@@ -321,28 +321,29 @@ exports.notifications = function (success, error, args) {
  * @return [ Void ]
  */
 exports.actions = function (success, error, args) {
-    var ActionGroup = LocalNotification.ActionGroup,
-        code        = args[0],
-        id          = args[1],
-        res         = [],
-        list, group;
+  var ActionGroup = LocalNotification.ActionGroup,
+    code = args[0],
+    id = args[1],
+    res = [],
+    list,
+    group;
 
-    switch (code) {
-        case 0:
-            list  = exports.parseActions({ actions:args[2] });
-            group = new ActionGroup(id, list);
+  switch (code) {
+    case 0:
+      list = exports.parseActions({ actions: args[2] });
+      group = new ActionGroup(id, list);
 
-            ActionGroup.register(group);
-            break;
-        case 1:
-            ActionGroup.unregister(id);
-            break;
-        case 2:
-            res.push(ActionGroup.isRegistered(id));
-            break;
-    }
+      ActionGroup.register(group);
+      break;
+    case 1:
+      ActionGroup.unregister(id);
+      break;
+    case 2:
+      res.push(ActionGroup.isRegistered(id));
+      break;
+  }
 
-    success.apply(this, res);
+  success.apply(this, res);
 };
 
 /**
@@ -353,19 +354,19 @@ exports.actions = function (success, error, args) {
  * @return [ Void ]
  */
 exports.clicked = function (xml, input) {
-    var toast = LocalNotification.Options.parse(xml),
-        event = toast.action || 'click',
-        meta  = Object.assign({}, input);
+  var toast = LocalNotification.Options.parse(xml),
+    event = toast.action || "click",
+    meta = Object.assign({}, input);
 
-    if (input && input.size > 0) {
-        meta.text = input.first().current.value;
-    }
+  if (input && input.size > 0) {
+    meta.text = input.first().current.value;
+  }
 
-    if (!ready) {
-        exports.launch(null, null, [toast.id, event]);
-    }
+  if (!ready) {
+    exports.launch(null, null, [toast.id, event]);
+  }
 
-    exports.fireEvent(event, toast, meta);
+  exports.fireEvent(event, toast, meta);
 };
 
 /**
@@ -378,19 +379,19 @@ exports.clicked = function (xml, input) {
  * @return [ Void ]
  */
 exports.fireEvent = function (event, toast, data) {
-    var meta   = Object.assign({ event: event }, data),
-        plugin = cordova.plugins.notification.local;
+  var meta = Object.assign({ event: event }, data),
+    plugin = cordova.plugins.notification.local;
 
-    if (!ready) {
-        queue.push(arguments);
-        return;
-    }
+  if (!ready) {
+    queue.push(arguments);
+    return;
+  }
 
-    if (toast) {
-        plugin.fireEvent(event, exports.clone(toast), meta);
-    } else {
-        plugin.fireEvent(event, meta);
-    }
+  if (toast) {
+    plugin.fireEvent(event, exports.clone(toast), meta);
+  } else {
+    plugin.fireEvent(event, meta);
+  }
 };
 
 /**
@@ -401,17 +402,17 @@ exports.fireEvent = function (event, toast, data) {
  * @return [ Array<Object> ]
  */
 exports.cloneAll = function (objs) {
-    var clones = [];
+  var clones = [];
 
-    if (!Array.isArray(objs)) {
-        objs = Array.from(objs);
-    }
+  if (!Array.isArray(objs)) {
+    objs = Array.from(objs);
+  }
 
-    for (var obj of objs) {
-        clones.push(exports.clone(obj));
-    }
+  for (var obj of objs) {
+    clones.push(exports.clone(obj));
+  }
 
-    return clones;
+  return clones;
 };
 
 /**
@@ -422,24 +423,25 @@ exports.cloneAll = function (objs) {
  * @return [ Object ]
  */
 exports.clone = function (obj) {
-    var ignore = ['action'],
-        dclone = ['trigger'],
-        clone  = {};
+  var ignore = ["action"],
+    dclone = ["trigger"],
+    clone = {};
 
-    if (obj === null) return null;
+  if (obj === null) return null;
 
-    for (var prop in obj) {
-        if (ignore.includes(prop) || typeof obj[prop] === 'function')
-            continue;
+  for (var prop in obj) {
+    if (ignore.includes(prop) || typeof obj[prop] === "function") continue;
 
-        try {
-            clone[prop] = dclone.includes(prop) ? exports.clone(obj[prop]) : obj[prop];
-        } catch (e) {
-            clone[prop] = null;
-        }
+    try {
+      clone[prop] = dclone.includes(prop)
+        ? exports.clone(obj[prop])
+        : obj[prop];
+    } catch (e) {
+      clone[prop] = null;
     }
+  }
 
-    return clone;
+  return clone;
 };
 
 /**
@@ -450,25 +452,25 @@ exports.clone = function (obj) {
  * @return [ LocalNotification.Options ]
  */
 exports.parseOptions = function (obj) {
-    var opts   = new LocalNotification.Options(),
-        ignore = ['progressBar', 'actions', 'trigger'];
+  var opts = new LocalNotification.Options(),
+    ignore = ["progressBar", "actions", "trigger"];
 
-    for (var prop in opts) {
-        if (!ignore.includes(prop) && obj[prop]) {
-            opts[prop] = obj[prop];
-        }
+  for (var prop in opts) {
+    if (!ignore.includes(prop) && obj[prop]) {
+      opts[prop] = obj[prop];
     }
+  }
 
-    var progressBar  = exports.parseProgressBar(obj);
-    opts.progressBar = progressBar;
+  var progressBar = exports.parseProgressBar(obj);
+  opts.progressBar = progressBar;
 
-    var trigger  = exports.parseTrigger(obj);
-    opts.trigger = trigger;
+  var trigger = exports.parseTrigger(obj);
+  opts.trigger = trigger;
 
-    var actions  = exports.parseActions(obj);
-    opts.actions = actions;
+  var actions = exports.parseActions(obj);
+  opts.actions = actions;
 
-    return opts;
+  return opts;
 };
 
 /**
@@ -479,18 +481,19 @@ exports.parseOptions = function (obj) {
  * @return [ LocalNotification.Trigger ]
  */
 exports.parseTrigger = function (obj) {
-    var trigger = new LocalNotification.Toast.Trigger(),
-        spec    = obj.trigger, val;
+  var trigger = new LocalNotification.Toast.Trigger(),
+    spec = obj.trigger,
+    val;
 
-    if (!spec) return trigger;
+  if (!spec) return trigger;
 
-    for (var prop in trigger) {
-        val = spec[prop];
-        if (!val) continue;
-        trigger[prop] = prop == 'every' ? exports.parseEvery(val) : val;
-    }
+  for (var prop in trigger) {
+    val = spec[prop];
+    if (!val) continue;
+    trigger[prop] = prop == "every" ? exports.parseEvery(val) : val;
+  }
 
-    return trigger;
+  return trigger;
 };
 
 /**
@@ -501,15 +504,15 @@ exports.parseTrigger = function (obj) {
  * @return [ LocalNotification.Every|String ]
  */
 exports.parseEvery = function (spec) {
-    var every = new LocalNotification.Toast.Every();
+  var every = new LocalNotification.Toast.Every();
 
-    if (typeof spec !== 'object') return spec;
+  if (typeof spec !== "object") return spec;
 
-    for (var prop in every) {
-        if (spec.hasOwnProperty(prop)) every[prop] = parseInt(spec[prop]);
-    }
+  for (var prop in every) {
+    if (spec.hasOwnProperty(prop)) every[prop] = parseInt(spec[prop]);
+  }
 
-    return every;
+  return every;
 };
 
 /**
@@ -520,32 +523,32 @@ exports.parseEvery = function (spec) {
  * @return [ Array<LocalNotification.Action> ]
  */
 exports.parseActions = function (obj) {
-    var spec    = obj.actions,
-        actions = [], btn;
+  var spec = obj.actions,
+    actions = [],
+    btn;
 
-    if (!spec) return actions;
+  if (!spec) return actions;
 
-    if (typeof spec === 'string') {
-        var group = LocalNotification.ActionGroup.lookup(spec);
-        return group ? group.actions : actions;
+  if (typeof spec === "string") {
+    var group = LocalNotification.ActionGroup.lookup(spec);
+    return group ? group.actions : actions;
+  }
+
+  for (var action of spec) {
+    if (!action.type || action.type == "button") {
+      btn = new LocalNotification.Toast.Button();
+    } else if (action.type == "input") {
+      btn = new LocalNotification.Toast.Input();
     }
 
-    for (var action of spec) {
-        if (!action.type || action.type == 'button') {
-            btn = new LocalNotification.Toast.Button();
-        } else
-        if (action.type == 'input') {
-            btn = new LocalNotification.Toast.Input();
-        }
-
-        for (var prop in btn) {
-            if (action[prop]) btn[prop] = action[prop];
-        }
-
-        actions.push(btn);
+    for (var prop in btn) {
+      if (action[prop]) btn[prop] = action[prop];
     }
 
-    return actions;
+    actions.push(btn);
+  }
+
+  return actions;
 };
 
 /**
@@ -556,23 +559,27 @@ exports.parseActions = function (obj) {
  * @return [ LocalNotification.ProgressBar ]
  */
 exports.parseProgressBar = function (obj) {
-    var bar  = new LocalNotification.Toast.ProgressBar(),
-        spec = obj.progressBar;
+  var bar = new LocalNotification.Toast.ProgressBar(),
+    spec = obj.progressBar;
 
-    if (!spec) return bar;
+  if (!spec) return bar;
 
-    for (var prop in bar) {
-        if (spec[prop]) bar[prop] = spec[prop];
-    }
+  for (var prop in bar) {
+    if (spec[prop]) bar[prop] = spec[prop];
+  }
 
-    return bar;
+  return bar;
 };
 
 // Handle onclick event
-document.addEventListener('activated', function (e) {
+document.addEventListener(
+  "activated",
+  function (e) {
     if (e.kind == ActivationKind.toastNotification) {
-        exports.clicked(e.raw.argument, e.raw.userInput);
+      exports.clicked(e.raw.argument, e.raw.userInput);
     }
-}, false);
+  },
+  false
+);
 
-cordova.commandProxy.add('LocalNotification', exports);
+cordova.commandProxy.add("LocalNotification", exports);
